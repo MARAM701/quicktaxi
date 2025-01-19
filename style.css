@@ -1,450 +1,222 @@
+/* style.css */
 /* General reset */
-
 body {
-
     margin: 0;
-
     font-family: Arial, sans-serif;
-
     background: url('car.png') no-repeat center center fixed; /* Set the car image as the background */
-
     background-size: cover; /* Make the background cover the entire page */
-
     height: 100vh; /* Set the height to fill the viewport */
-
     overflow: hidden; /* Prevent scrolling */
-
 }
-
-
 
 /* Header styling */
-
 #header {
-
     background-color: rgba(0, 0, 0, 0.7); /* Black background with transparency */
-
     color: white; /* White text */
-
     padding: 10px 20px; /* Add padding inside the header */
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     position: relative;
-
     z-index: 1;
-
 }
-
-
 
 /* Header container styling */
-
 #header-container {
-
     width: 100%;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between; /* Spread items across the header */
-
 }
-
-
 
 /* Left links (Help) */
-
 #left-links {
-
     flex: 1;
-
 }
-
-
 
 #help-link {
-
     color: white;
-
     text-decoration: none;
-
     font-size: 1em;
-
 }
-
-
 
 #help-link:hover {
-
     text-decoration: underline; /* Underline the Help link on hover */
-
 }
-
-
 
 /* Logo styling */
-
 #logo {
-
     flex: 2;
-
     text-align: center; /* Center the logo text */
-
     font-size: 1.5em;
-
     font-weight: bold;
-
     margin: 0;
-
 }
-
-
 
 /* Right links styling */
-
 #right-links {
-
     flex: 1;
-
     display: flex;
-
     justify-content: flex-end;
-
     align-items: center;
-
 }
-
-
 
 #right-links a {
-
     color: white;
-
     text-decoration: none;
-
     margin-left: 20px; /* Space between links */
-
 }
-
-
 
 #right-links a:hover {
-
     text-decoration: underline; /* Underline links on hover */
-
 }
-
-
 
 /* Sign-up button styling */
-
 #signup-button {
-
     background-color: #007bff; /* Blue background for sign-up button */
-
     padding: 5px 10px;
-
     border-radius: 5px;
-
     color: white;
-
 }
-
-
 
 #signup-button:hover {
-
     background-color: #0056b3; /* Darker blue when hovering */
-
 }
-
-
 
 /* Get a Ride Form Styling */
-
 #get-ride {
-
     margin-top: 50px;
-
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
     text-align: center;
-
 }
-
-
 
 #ride-container {
-
     background: rgba(255, 255, 255, 0.9); /* White with slight transparency */
-
     padding: 30px;
-
     border-radius: 10px;
-
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
     max-width: 500px;
-
     width: 100%;
-
 }
-
-
 
 #ride-title {
-
     margin: 20px 0;
-
     font-size: 2em;
-
 }
-
-
 
 .form-container {
-
     margin-top: 20px;
-
 }
-
-
 
 .input-container {
-
     margin-bottom: 20px;
-
 }
-
-
 
 .input-wrapper {
-
     display: flex;
-
     align-items: center;
-
     position: relative;
-
 }
-
-
 
 input[type="text"] {
-
     width: 100%;
-
     padding: 10px;
-
     border: 1px solid #ccc;
-
     border-radius: 5px;
-
     margin-top: 5px;
-
     box-sizing: border-box;
-
     font-size: 1em;
-
     color: #333;
-
 }
-
-
 
 input[type="text"]::placeholder {
-
     color: #888; /* Placeholder text in gray */
-
 }
-
-
-
 .icon-button {
-
     background: none;
-
     border: none;
-
     position: absolute;
-
     right: 10px;
-
     cursor: pointer;
-
 }
-
-
 
 .location-icon {
-
     width: 20px;
-
     height: 20px;
-
 }
 
 /* Tooltip for the left side of the input field */
-
 .tooltip-left {
-
     visibility: visible; /* Always visible */
-
     width: max-content;
-
     background-color: rgba(85, 85, 85, 0.8); /* Semi-transparent background color */
-
-    color: #fff; 
-
+    color: #fff;
     font-size: 0.75em;
-
     text-align: center;
-
     border-radius: 5px;
-
     padding: 5px;
-
     position: absolute;
-
     top: -20px; /* Position above the input field */
-
-    left: 25%; /* Position to the left of the input */  
-
-    
-
+    left: 25%; /* Position to the left of the input */
     transform: translateX(-100%);
-
     z-index: 1;
-
     opacity: 1; /* Fully visible */
-
-} 
-
-
+}
 
 .tooltip {
-
     visibility: visible;
-
     width: max-content;
-
     background-color: rgba(85, 85, 85, 0.8); /* Semi-transparent background color */
-
     color: #fff;
-
     text-align: center;
-
     border-radius: 5px;
-
     padding: 5px;
-
     position: absolute;
-
     bottom: 120%; /* Adjust this value to position above */
-
     left: 50%;
-
     transform: translateX(-50%);
-
     z-index: 1;
-
     opacity: 1;
-
-    
-
 }
-
-
-
-
-
-
 
 #book-now-button {
-
     margin-top: 20px;
-
     padding: 15px 20px;
-
     background-color: #444;
-
     color: white;
-
     border: none;
-
     border-radius: 5px;
-
     font-size: 1em;
-
     cursor: pointer;
-
-} 
-
-
-
-
+}
 
 #book-now-button:hover {
-
     background-color: #333; /* Darker shade on hover */
-
-} 
-
-/* Custom Dialog Styles */
-
-.custom-dialog {
-
-    display: none;
-
-    position: fixed;
-
-    top: 0;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    background-color: rgba(0, 0, 0, 0.6);
-
-    justify-content: center;
-
-    align-items: center;
-
-    z-index: 1000;
-
 }
-
-
+/* Custom Dialog Styles */
+.custom-dialog {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
 
 .dialog-content {
-
     background-color: white;
-
     padding: 24px;
-
     border-radius: 16px;
-
     width: 400px;
-
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-
 }
-
-
 
 .dialog-header {
     display: flex;
@@ -456,144 +228,42 @@ input[type="text"]::placeholder {
     position: relative; /* Required for the "X" absolute positioning */
 }
 
-
-
-
 .dialog-header-left {
-
     display: flex;
-
     align-items: center;
-
     gap: 12px;
-
 }
-
-
 
 .dialog-icon {
-
     width: 24px;
-
     height: 24px;
-
 }
-
-
 
 .dialog-title {
-
     font-size: 20px; /* Increased size for more emphasis */
-
     font-weight: 700; /* Makes the text bold */
-
     color: #1a1a1a; /* Keeps the original dark color */
-
-} 
-
-/* close Button ("X") */ 
-/*
-.close-dialog {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #666;
-    cursor: pointer;
-    padding: 4px 8px;
-    position: static; Change from absolute to static 
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.2s ease; 
-    margin-left: auto; /* This pushes the button to the right 
-} 
-*/
-
-
-
-.close-dialog:hover {
-
-    background-color: #f5f5f5; 
-    color: #333;
-
 }
-
-
-
-.dialog-message {
-
-    font-size: 20px;
-
-    color: #1a1a1a;
-
-    margin: 20px 0 24px 0;
-
-    font-weight: 400;
-
-}
-
-
-
-
-
-
-
-.dialog-button {
-
-    padding: 8px 24px;
-
-    border-radius: 24px;
-
-    border: none;
-
-    font-size: 15px;
-
-    font-weight: 500;
-
-    cursor: pointer;
-
-    transition: background-color 0.2s;
-
-}
-
-
 
 .block-button {
-
     background-color: #D0E1FD; /* The new blue shade */
-
     color: #1a1a1a; /* You can change this if you want a different text color */
-
     border: none;
-
     padding: 8px 24px;
-
     border-radius: 24px;
-
     font-size: 15px;
-
     font-weight: 500;
-
     cursor: pointer;
-
     transition: background-color 0.2s;
-
 }
-
-
 
 .block-button:hover {
-
     background-color: #b3c8f9;
-
 }
 
-
-
 .allow-button {
-    background-color: #D0E1FD ; /* The new blue shade with !important to ensure it overrides defaults */
-    color: #1a1a1a ; /* You can change this if you want a different text color */
+    background-color: #D0E1FD; /* The new blue shade with !important to ensure it overrides defaults */
+    color: #1a1a1a; /* You can change this if you want a different text color */
     border: none;
     padding: 8px 24px;
     border-radius: 24px;
@@ -601,129 +271,63 @@ input[type="text"]::placeholder {
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s;
-    outline: none;  /* Remove default outline */
-    box-shadow: none;  /* Remove default box shadow */
-    appearance: none;  /* Normalize button style across browsers */
+    outline: none; /* Remove default outline */
+    box-shadow: none; /* Remove default box shadow */
+    appearance: none; /* Normalize button style across browsers */
 }
-
-
 
 .allow-button:hover {
-
     background-color: #b3c8f9;
-
-} 
-
-.dialog-message {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px; /* Adds spacing between the icon and the text */
-
 }
 
-
+/* Message Text */
+.dialog-message {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Adds spacing between the icon and the text */
+    font-size: 20px;
+    color: #1a1a1a;
+    margin: 20px 0 24px 0;
+    font-weight: 400;
+    line-height: 1.6;
+}
 
 .dialog-icon-small {
-
     width: 30px; /* Adjust the size of the icon as needed */
-
     height: 30px; /* Adjust the size of the icon as needed */
-
 }
 
 /* Custom Alert Styles */
-
 .custom-alert {
-
     display: none; /* Hidden by default */
-
     position: fixed;
-
     top: 0;
-
     left: 0;
-
     width: 100%;
-
     height: 100%;
-
     background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-
     justify-content: center;
-
     align-items: center;
-
     z-index: 1000;
-
 }
-
-
-
-.alert-content {
-    background-color: white;
-    padding: 24px;
-    border-radius: 16px;  /* Changed from 8px */
-    width: 400px;        /* Changed from 300px */
-    text-align: center;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-    position: relative;
-}
-
-
-.alert-message {
-    font-size: 16px;
-    margin-bottom: 16px;
-    display: block;
-    text-align: left;  /* Add this line */
-}
-
-/* Add styles for ordered list in alert message */
-.alert-message ol {
-    text-align: left;
-    margin: 16px 0;
-    padding-left: 24px;
-}
-
-.alert-message li {
-    margin-bottom: 12px;
-}
-
-
 
 .close-alert-button {
-
     background-color: #D0E1FD; /* The new blue shade */
-
     color: #1a1a1a; /* You can change this if you want a different text color */
-
     border: none;
-
     padding: 8px 24px;
-
     border-radius: 24px;
-
     font-size: 15px;
-
     font-weight: 500;
-
     cursor: pointer;
-
     transition: background-color 0.2s;
-
 }
-
-
 
 .close-alert-button:hover {
 
     background-color: #b3c8f9;
 
 } 
-/* Add these new styles at the end of your CSS file */
 
 /* Alert header styles */
 .alert-header {
@@ -747,17 +351,20 @@ input[type="text"]::placeholder {
     font-size: 16px;
     margin: 16px 0;
     text-align: left;  /* Added for left alignment */
-    line-height: 1.5;  /* Added for better readability */
-}
+    line-height: 1.5;  /* Added for better readability */ 
+    display: block;
+} 
+
 
 .alert-message ol {
     margin: 16px 0;
     padding-left: 24px;
 }
-
+/* Add styles for ordered list in alert message */
 .alert-message li {
     margin-bottom: 12px;
-}
+} 
+
 /* Update custom alert for the dismissed message */
 #custom-alert .alert-message {
     text-align: left;
@@ -819,7 +426,8 @@ input[type="text"]::placeholder {
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
     position: relative;
-}
+} 
+
 
 /* Remove close button styles since we're not using it */
 #survey-instructions .alert-content {
@@ -839,29 +447,6 @@ input[type="text"]::placeholder {
     z-index: 1000;
 }
 
-.dialog-content {
-    background-color: white;
-    padding: 24px;
-    border-radius: 16px;
-    width: 400px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-}
-
-/* Title for Confirmation Dialog */
-.dialog-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: #1a1a1a;
-}
-
-/* Message Text */
-.dialog-message {
-    font-size: 16px;
-    color: #1a1a1a;
-    margin: 16px 0;
-    line-height: 1.6;
-}
 
 /* Action Buttons */
 .dialog-actions {
@@ -881,7 +466,8 @@ input[type="text"]::placeholder {
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.2s ease;
-}
+} 
+
 
 .dialog-button:hover {
     background-color: #b3c8f9; /* Lighter blue on hover */
@@ -923,11 +509,7 @@ input[type="text"]::placeholder {
     color: #333;
     background-color: #f5f5f5;
 } 
-/* 
-.close-dialog:hover {
-    color: #333;
-} 
-*/
+
 /* Add these styles for the permission confirmation dialog */
 #permission-confirmation .dialog-message {
     display: block; /* Override the flex display from the location dialog */
