@@ -2,249 +2,335 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickTaxi</title>
-    <!-- Link to the main CSS -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Link to the instructions page CSS -->
-    <link rel="stylesheet" href="instructions.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>QuickTaxi</title>
+  <!-- Link to the main CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Link to the instructions page CSS -->
+  <link rel="stylesheet" href="instructions.css">
 </head>
 
 <body>
-    <!-- Instructions Page -->
-    <div id="instructions-page">
-        <div class="container">
-            <div class="content-wrapper instructions-content">
-                <h1>Experiment Instructions Page <br> <br> Understanding User Perceptions of Website Permission Requests
-                </h1>
+  <!-- Instructions Page -->
+  <div id="instructions-page">
+    <div class="container">
+      <div class="content-wrapper instructions-content">
+        <h1>
+          Experiment Instructions Page <br><br>
+          Understanding User Perceptions of Website Permission Requests
+        </h1>
 
-                <div class="section">
-                    <h2>Welcome!</h2>
-                    <p>Thank you for participating in this survey! We're exploring how people make decisions about
-                        website permission requests. Your insights will help improve user experiences and data privacy
-                        practices.</p>
-                </div>
-
-                <div class="section">
-                    <h2>Before You Begin the experiment</h2>
-                    <ol>
-                        <li>Please read each step carefully.</li>
-                        <li>There are no right or wrong answers—just share your honest responses.</li>
-                        <li>When you're ready, click <span class="important">"Agree"</span> and then <span
-                                class="important">"Next"</span> to continue to the Quick Taxi website.</li>
-                        <li>About Quick Taxi:
-                            <ul class="nested-list">
-                                <li>On the Quick Taxi website, you can:
-                                    <ul>
-                                        <li>Book rides quickly and easily.</li>
-                                        <li>Find drivers near your location.</li>
-                                        <li>Manually select pick-up and drop-off locations if needed.</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ol>
-                </div>
-
-                <div class="section">
-                    <h2>Getting Started</h2>
-                    <ol>
-                        <li>Visit the Website
-                            <ul class="nested-list">
-                                <li>After reading this page, click <span class="important">"Agree"</span> and then <span
-                                        class="important">"Next"</span> to proceed to the Quick Taxi website.</li>
-                            </ul>
-                        </li>
-                        <li>Allow Location Access
-                            <ul class="nested-list">
-                                <li>On the website, you'll see a Request Ride Form.</li>
-                                <li>Click the button to Allow Location Access.</li>
-                                <li>A permission prompt will appear saying: <em>"quicktaxi.com wants to use your
-                                        location."</em></li>
-                            </ul>
-                        </li>
-                        <li>Make Your Choice:
-                            <ul class="nested-list">
-                                <li>Carefully read the information in the permission prompt.</li>
-                                <li>Select <span class="important">"Allow"</span> or <span
-                                        class="important">"Block"</span> location access based on the details provided.
-                                </li>
-                            </ul>
-                        </li>
-                        <li>Survey Participation
-                            <ul class="nested-list">
-                                <li>After choosing whether to allow or block location access, you will be redirected to
-                                    a survey.</li>
-                                <li>Answer a few short questions about web privacy preferences.</li>
-                                <li>Once the survey is complete, follow the instructions to return to Prolific and
-                                    collect your reward.</li>
-                            </ul>
-                        </li>
-                    </ol>
-                </div>
-
-                <div class="section">
-                    <h2>Confidentiality</h2>
-                    <p>Your responses will remain anonymous and will only be used for research purposes.</p>
-                    <p>All collected data will be kept confidential.</p>
-                </div>
-
-                <div class="section">
-                    <h2>Consent</h2>
-                    <p>By continuing, you confirm that you meet the minimum age requirements for data processing consent
-                        in your country. You also grant permission for the University of California, Berkeley to use
-                        your responses in accordance with our Privacy Policy.</p>
-                    <p>If you wish to withdraw your consent or request the deletion of your responses, please contact us
-                        at <a href="mailto:egelman@icsi.berkeley.edu" class="contact">egelman@icsi.berkeley.edu</a>.</p>
-                </div>
-
-                <div class="section">
-                    <h2>Consent Options</h2>
-                    <p>Please select one of the following options to proceed:</p>
-                    <div class="consent-options">
-                        <button id="agreeButton" class="button consent-button">Yes, I agree and want to
-                            continue</button>
-                        <button id="disagreeButton" class="button consent-button">No, I don't agree and don't want to
-                            continue</button>
-                    </div>
-                    <div id="consentMessage"></div>
-                </div>
-
-                <button id="nextButton" class="button next-button" disabled>
-                    Next <span class="arrow">→</span>
-                </button>
-
-                <div class="section">
-                    <h2>Thank You!</h2>
-                    <p>We appreciate your time and effort. Your participation helps us better understand user
-                        preferences and improve online experiences.</p>
-                </div>
-            </div>
+        <div class="section">
+          <h2>Welcome!</h2>
+          <p>
+            Thank you for participating in this survey! We're exploring how people make decisions about
+            website permission requests. Your insights will help improve user experiences and data privacy
+            practices.
+          </p>
         </div>
+
+        <div class="section">
+          <h2>Before You Begin the experiment</h2>
+          <ol>
+            <li>Please read each step carefully.</li>
+            <li>There are no right or wrong answers—just share your honest responses.</li>
+            <li>
+              When you're ready, click <span class="important">"Agree"</span> and then
+              <span class="important">"Next"</span> to continue to the Quick Taxi website.
+            </li>
+            <li>About Quick Taxi:
+              <ul class="nested-list">
+                <li>On the Quick Taxi website, you can:
+                  <ul>
+                    <li>Book rides quickly and easily.</li>
+                    <li>Find drivers near your location.</li>
+                    <li>Manually select pick-up and drop-off locations if needed.</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <div class="section">
+          <h2>Getting Started</h2>
+          <ol>
+            <li>
+              Visit the Website
+              <ul class="nested-list">
+                <li>
+                  After reading this page, click
+                  <span class="important">"Agree"</span> and then
+                  <span class="important">"Next"</span> to proceed to the Quick Taxi website.
+                </li>
+              </ul>
+            </li>
+            <li>
+              Allow Location Access
+              <ul class="nested-list">
+                <li>On the website, you'll see a Request Ride Form.</li>
+                <li>Click the button to Allow Location Access.</li>
+                <li>
+                  A permission prompt will appear saying:
+                  <em>"quicktaxi.com wants to use your location."</em>
+                </li>
+                <li>
+                  <p class="important">
+                    <strong>This study uses simulated permission prompts for research purposes only. No real location
+                      data is accessed or collected via the permission prompts.</strong>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              Make Your Choice:
+              <ul class="nested-list">
+                <li>Carefully read the information in the permission prompt.</li>
+                <li>
+                  Select <span class="important">"Allow"</span> or
+                  <span class="important">"Block"</span> location access based on the details provided.
+                </li>
+              </ul>
+            </li>
+            <li>
+              Survey Participation
+              <ul class="nested-list">
+                <li>
+                  After choosing whether to allow or block location access, you will be redirected to
+                  a survey.
+                </li>
+                <li>Answer a few short questions about web privacy preferences.</li>
+                <li>
+                  Once the survey is complete, follow the instructions to return to Prolific and
+                  collect your reward.
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+
+        <div class="section">
+          <h2>Confidentiality</h2>
+          <p>Your responses will remain anonymous and will only be used for research purposes.</p>
+          <p>All collected data will be kept confidential.</p>
+          <p class="important">
+            <strong>This study uses simulated permission prompts for research purposes only. No real location data is
+              accessed or collected via the permission prompts.</strong>
+          </p>
+        </div>
+
+        <div class="section">
+          <h2>Consent</h2>
+          <p>
+            By continuing, you confirm that you meet the minimum age requirements for data processing consent
+            in your country. You also grant permission for the University of California, Berkeley to use
+            your responses in accordance with our Privacy Policy.
+          </p>
+          <p>
+            If you wish to withdraw your consent or request the deletion of your responses, please contact us
+            at <a href="mailto:egelman@icsi.berkeley.edu" class="contact">egelman@icsi.berkeley.edu</a>.
+          </p>
+        </div>
+
+        <div class="section">
+          <h2>Consent Options</h2>
+          <p>Please select one of the following options to proceed:</p>
+          <div class="consent-options">
+            <!-- Consent buttons now have type="button" -->
+            <button type="button" id="agreeButton" class="button consent-button">
+              Yes, I agree and want to continue
+            </button>
+            <button type="button" id="disagreeButton" class="button consent-button">
+              No, I don't agree and don't want to continue
+            </button>
+          </div>
+          <div id="consentMessage"></div>
+        </div>
+
+        <!-- Next button has type="button" -->
+        <button type="button" id="nextButton" class="button next-button" disabled>
+          Next <span class="arrow">→</span>
+        </button>
+
+        <div class="section">
+          <h2>Thank You!</h2>
+          <p>
+            We appreciate your time and effort. Your participation helps us better understand user
+            preferences and improve online experiences.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main QuickTaxi Page -->
+  <div id="main-page">
+    <!-- Header Section -->
+    <header id="header">
+      <div id="header-container">
+        <div id="left-links">
+          <a href="#" id="help-link">Help</a>
+        </div>
+        <h1 id="logo">QuickTaxi</h1>
+        <div id="right-links">
+          <a href="#">Products</a>
+          <a href="#">Log in</a>
+          <a href="#" id="signup-button">Sign up</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Get a Ride Form Section -->
+    <section id="get-ride">
+      <div id="ride-container">
+        <h1 id="ride-title">Request a ride</h1>
+        <div class="form-container">
+          <div class="input-container">
+            <label for="pickup-location"></label>
+            <div class="input-wrapper">
+              <span class="tooltip-left">Manually enter an address</span>
+              <input type="text" id="pickup-location" name="pickup-location" placeholder="Enter Pickup location">
+              <!-- "Allow location access" button has type="button" -->
+              <button type="button" class="icon-button" id="allow-location-button">
+                <span class="tooltip">Allow location access</span>
+                <img src="location-icon.png" alt="Location Icon" class="location-icon">
+              </button>
+            </div>
+          </div>
+          <div class="input-container">
+            <label for="dropoff-location"></label>
+            <input type="text" id="dropoff-location" name="dropoff-location" placeholder="Enter Drop-off location">
+          </div>
+          <!-- "Book Now" button has type="button" -->
+          <button type="button" id="book-now-button">
+            Book Now
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Custom Dialog for Location Permission -->
+    <div id="custom-dialog" class="custom-dialog">
+      <div class="dialog-content">
+        <div class="dialog-header">
+          <div class="dialog-header-left">
+            <span class="dialog-title">quicktaxi.com wants to</span>
+          </div>
+          <!-- Dismiss button with type="button" -->
+          <button type="button" class="close-dialog" onclick="handleLocationPermission('dismiss', event)">
+            &times;
+          </button>
+        </div>
+        <div class="dialog-message">
+          <img src="location-icon1.png" alt="Location Icon" class="dialog-icon-small">
+          <span>Use your location</span>
+        </div>
+
+        <div class="dialog-actions">
+          <!-- Block and Allow buttons with type="button" -->
+          <button type="button" class="dialog-button block-button" onclick="handleLocationPermission('block', event)">
+            Block
+          </button>
+          <button type="button" class="dialog-button allow-button" onclick="handleLocationPermission('allow', event)">
+            Allow
+          </button>
+        </div>
+      </div>
     </div>
 
-    <!-- Main QuickTaxi Page -->
-    <div id="main-page">
-        <!-- Header Section -->
-        <header id="header">
-            <div id="header-container">
-                <div id="left-links">
-                    <a href="#" id="help-link">Help</a>
-                </div>
-                <h1 id="logo">QuickTaxi</h1>
-                <div id="right-links">
-                    <a href="#">Products</a>
-                    <a href="#">Log in</a>
-                    <a href="#" id="signup-button">Sign up</a>
-                </div>
-            </div>
-        </header>
-
-        <!-- Get a Ride Form Section -->
-        <section id="get-ride">
-            <div id="ride-container">
-                <h1 id="ride-title">Request a ride</h1>
-                <div class="form-container">
-                    <div class="input-container">
-                        <label for="pickup-location"></label>
-                        <div class="input-wrapper">
-                            <span class="tooltip-left">Manually enter an address</span>
-                            <input type="text" id="pickup-location" name="pickup-location"
-                                placeholder="Enter Pickup location">
-                            <button class="icon-button" id="allow-location-button">
-                                <span class="tooltip">Allow location access</span>
-                                <img src="location-icon.png" alt="Location Icon" class="location-icon">
-                            </button>
-                        </div>
-                    </div>
-                    <div class="input-container">
-                        <label for="dropoff-location"></label>
-                        <input type="text" id="dropoff-location" name="dropoff-location"
-                            placeholder="Enter Drop-off location">
-                    </div>
-                    <button id="book-now-button">Book Now</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- Custom Dialog for Location Permission -->
-        <div id="custom-dialog" class="custom-dialog">
-            <div class="dialog-content">
-                <div class="dialog-header">
-                    <div class="dialog-header-left">
-                        <span class="dialog-title">quicktaxi.com wants to</span>
-                    </div>
-                    <!-- Remove showPermissionConfirmation() and directly handle dismiss -->
-                    <button class="close-dialog" onclick="handleLocationPermission('dismiss')">×</button>
-                </div>
-                <div class="dialog-message">
-                    <img src="location-icon1.png" alt="Location Icon" class="dialog-icon-small">
-                    <span>Use your location</span>
-                </div>
-
-                <div class="dialog-actions">
-                    <button onclick="handleLocationPermission('block')"
-                        class="dialog-button block-button">Block</button>
-                    <button onclick="handleLocationPermission('allow')"
-                        class="dialog-button allow-button">Allow</button>
-                </div>
-            </div>
+    <!-- Custom Alert Dialog -->
+    <div id="custom-alert" class="custom-alert">
+      <div class="alert-content">
+        <div class="alert-header">
+          <span class="alert-title">Location Access</span>
         </div>
-
-        <!-- Custom Alert Dialog -->
-        <div id="custom-alert" class="custom-alert">
-            <div class="alert-content">
-                <div class="alert-header">
-                    <span class="alert-title">Location Access</span>
-                </div>
-                <span id="alert-message" class="alert-message"></span>
-                <div class="alert-actions">
-                    <button class="next-alert-button" onclick="showSurveyInstructions()">Next</button>
-                </div>
-            </div>
+        <span id="alert-message" class="alert-message"></span>
+        <div class="alert-actions">
+          <!-- Next button with type="button" -->
+          <button type="button" class="next-alert-button" onclick="showSurveyInstructions(event)">
+            Next
+          </button>
         </div>
+      </div>
+    </div>
 
-        <!-- Survey Instructions Dialog -->
-        <div id="survey-instructions" class="custom-alert">
-            <div class="alert-content">
-                <div class="alert-header">
-                    <span class="alert-title">Survey Instructions</span>
-                    <button class="close-dialog" onclick="showConfirmationDialog()">&times;</button>
-                </div>
-                <div class="alert-message">
-                    <p>Thank you for making your choice! To complete this task:</p>
-                    <ol>
-                        <li>Click the link below to fill out a short survey about web privacy preferences.</li>
-                        <li>Once you complete the survey, return to Prolific to collect your reward.</li>
-                    </ol>
-                    <p class="survey-link">
-                        <a href="https://qualtrics.com/" target="_blank">Go to Survey</a>
-                    </p>
-                </div>
-            </div>
+    <!-- Survey Instructions Dialog -->
+    <div id="survey-instructions" class="custom-alert">
+      <div class="alert-content">
+        <div class="alert-header">
+          <span class="alert-title">Survey Instructions</span>
+          <!-- Close button with type="button" -->
+          <button type="button" class="close-dialog" onclick="showConfirmationDialog(event)">
+            &times;
+          </button>
         </div>
-
-        <!-- Confirmation Dialog -->
-        <div id="confirmation-dialog" class="custom-dialog" style="display: none;">
-            <div class="dialog-content">
-                <div class="dialog-header">
-                    <span class="dialog-title">Are You Sure you want to close the Instructions dialog?</span>
-                </div>
-                <div class="dialog-message">
-                    <p> Please make sure you've visited the survey link to
-                        complete the task.</p>
-                </div>
-                <div class="dialog-actions">
-                    <button class="dialog-button" onclick="confirmCloseDialog()">Yes, Close</button>
-                    <button class="dialog-button no-back" onclick="cancelCloseDialog()">No, go back</button>
-                </div>
-            </div>
+        <div class="alert-message">
+          <p>Thank you for making your choice! To complete this task:</p>
+          <ol>
+            <li>Click the link below to fill out a short survey about web privacy preferences.</li>
+            <li>Once you complete the survey, return to Prolific to collect your reward.</li>
+          </ol>
+          <p class="survey-link">
+            <!-- Survey link doesn't need handleClick since we want normal navigation -->
+            <a href="https://qualtrics.com/" target="_blank" id="survey-link">Go to Survey</a>
+          </p>
         </div>
+      </div>
+    </div>
 
-
-        <script src="combinedscript.js"></script>
-    </div> <!-- Close main-page div -->
+    <!-- Confirmation Dialog -->
+    <div id="confirmation-dialog" class="custom-dialog" style="display: none;">
+      <div class="dialog-content">
+        <div class="dialog-header">
+          <span class="dialog-title">Are You Sure you want to close the Instructions dialog?</span>
+        </div>
+        <div class="dialog-message">
+          <p>Please make sure you've visited the survey link to complete the task.</p>
+        </div>
+        <div class="dialog-actions">
+          <!-- Confirmation buttons with type="button" -->
+          <button type="button" class="dialog-button" onclick="confirmCloseDialog(event)">
+            Yes, Close
+          </button>
+          <button type="button" class="dialog-button no-back" onclick="cancelCloseDialog(event)">
+            No, go back
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Final Page -->
+  <div id="final-page" style="display: none;">
+    <div class="container">
+      <div class="content-wrapper instructions-content">
+        <h1>Experiment Complete</h1>
+        <div class="section">
+          <h2>Thank You!</h2>
+          <p>
+            Your participation in this experiment has concluded. Please make sure you followed these steps:
+          </p>
+          <ol>
+            <li>If you have not already completed the survey shown earlier, click the survey link below.</li>
+            <li>If you have already completed the survey, you do not need to click the link again.</li>
+            <li>After finishing the survey, return to Prolific to collect your reward.</li>
+          </ol>
+          <p class="survey-link">
+            <a href="https://qualtrics.com/" target="_blank" id="final-survey-link">
+              Go to Survey
+            </a>
+          </p>
+        </div>
+        <div class="section">
+          <h2>Final Note</h2>
+          <p>
+            Please close this tab once you've completed the survey. Have a great day!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="combinedscript.js"></script>
 </body>
 
 </html>
