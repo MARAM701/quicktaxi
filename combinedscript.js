@@ -162,7 +162,7 @@ async function sendTrackingData(decision, surveyClicked = false) {
 
         console.log('Debug - Full tracking data being sent:', trackingData);
 
-        const response = await fetch('http://localhost:3000/track', {
+        const response = await fetch('https://tracking-server-qi6e.onrender.com/track', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
