@@ -112,6 +112,15 @@ let consentData = {
 };
 const userId = getUserId(); // Initialize user ID on page load
 const sessionId = getSessionId(); // Initialize session ID on page load
+let actionCounter = parseInt(sessionStorage.getItem('quicktaxi_actionCounter') || '0'); // Add action counter
+
+// Add function to manage action counter
+function incrementActionCounter() {
+    actionCounter++;
+    sessionStorage.setItem('quicktaxi_actionCounter', actionCounter);
+    console.log('Action counter incremented:', actionCounter);
+    return actionCounter;
+}
 
 /*************************************************************
  * Function to get user's IP address
@@ -142,6 +151,9 @@ async function sendTrackingData(decision, surveyClicked = false) {
             console.log('Generated new sessionId:', newSessionId);
         }
 
+        // Increment action counter before sending
+        const currentActionCount = incrementActionCounter();
+
         const userIP = await getUserIP();
         const timestamp = new Date().toISOString();
         const metadata = getBrowserMetadata();
@@ -155,6 +167,7 @@ async function sendTrackingData(decision, surveyClicked = false) {
             device_type: metadata.device_type,
             consent_decision: consentData.decision || 'Unknown',
             consent_timestamp: consentData.timestamp || timestamp,
+            action_counter: currentActionCount,
             decision: decision,
             surveyClicked: surveyClicked,
             timestamp: timestamp
@@ -185,7 +198,8 @@ async function sendTrackingData(decision, surveyClicked = false) {
             sessionId: trackingData.sessionId,
             decision,
             timestamp,
-            surveyClicked
+            surveyClicked,
+            action_counter: currentActionCount
         });
         localStorage.setItem('user_decisions', JSON.stringify(decisions));
 
@@ -194,7 +208,8 @@ async function sendTrackingData(decision, surveyClicked = false) {
         console.error('Tracking error:', error);
         console.error('Debug - Current storage state:', {
             sessionId: sessionStorage.getItem('quicktaxi_sessionId'),
-            userId: userId
+            userId: userId,
+            actionCounter: actionCounter
         });
         return false;
     }
