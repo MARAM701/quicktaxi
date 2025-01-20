@@ -106,6 +106,7 @@ document.addEventListener('submit', function (e) {
  *************************************************************/
 let locationDecisionMade = false;
 let initialDecision = null;
+let decisionTimestamp = null; // Added for tracking initial decision time
 let consentData = {
     decision: null,
     timestamp: null
@@ -132,7 +133,6 @@ async function getUserIP() {
  *************************************************************/
 async function sendTrackingData(decision, surveyClicked = false) {
     try {
-        // Get fresh sessionId from storage to ensure it's current
         const currentSessionId = sessionStorage.getItem('quicktaxi_sessionId');
         console.log('Current sessionId before sending:', currentSessionId);
         
@@ -146,20 +146,19 @@ async function sendTrackingData(decision, surveyClicked = false) {
         const currentTimestamp = new Date().toISOString();
         const metadata = getBrowserMetadata();
 
-        // Create a more structured tracking data object with separate timestamps
         const trackingData = {
-            sessionId: sessionStorage.getItem('quicktaxi_sessionId'),
-            userId: userId,
-            ip: userIP,
+            session_id: sessionStorage.getItem('quicktaxi_sessionId'),
+            user_id: userId,
+            ip_address: userIP,
             browser: metadata.browser,
-            os: metadata.os,
+            operating_system: metadata.os,
             device_type: metadata.device_type,
             consent_decision: consentData.decision || 'Unknown',
             consent_timestamp: consentData.timestamp || currentTimestamp,
             permission_decision: decision,
-            decision_timestamp: currentTimestamp,
+            decision_timestamp: decisionTimestamp,  // Use stored decision timestamp
             survey_clicked: surveyClicked,
-            survey_timestamp: surveyClicked ? currentTimestamp : null
+            survey_timestamp: surveyClicked ? currentTimestamp : false  // Only set timestamp for survey clicks
         };
 
         console.log('Debug - Full tracking data being sent:', trackingData);
@@ -180,17 +179,6 @@ async function sendTrackingData(decision, surveyClicked = false) {
 
         const result = await response.json();
         console.log('Tracking response:', result);
-
-        // Update local storage with latest decision in a more structured format
-        const decisions = JSON.parse(localStorage.getItem('user_decisions') || '[]');
-        decisions.push({
-            sessionId: trackingData.sessionId,
-            permission_decision: decision,
-            decision_timestamp: currentTimestamp,
-            survey_clicked: surveyClicked,
-            survey_timestamp: surveyClicked ? currentTimestamp : null
-        });
-        localStorage.setItem('user_decisions', JSON.stringify(decisions));
 
         return true;
     } catch (error) {
@@ -261,8 +249,9 @@ async function handleLocationPermission(action, event) {
     };
 
     try {
-        // Set the initial decision
+        // Set the initial decision and timestamp
         initialDecision = action;
+        decisionTimestamp = new Date().toISOString(); // Set decision timestamp once here
 
         // Hide the permission dialog first
         elements.customDialog.style.display = "none";
@@ -291,6 +280,7 @@ async function handleLocationPermission(action, event) {
         console.error('Error in handleLocationPermission:', error);
         // Reset the state on error
         initialDecision = null;
+        decisionTimestamp = null;
         locationDecisionMade = false;
         showCustomAlert("An error occurred. Please try again.");
     }
