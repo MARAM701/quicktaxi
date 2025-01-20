@@ -143,9 +143,10 @@ async function sendTrackingData(decision, surveyClicked = false) {
         }
 
         const userIP = await getUserIP();
-        const timestamp = new Date().toISOString();
+        const currentTimestamp = new Date().toISOString();
         const metadata = getBrowserMetadata();
 
+        // Create a more structured tracking data object with separate timestamps
         const trackingData = {
             sessionId: sessionStorage.getItem('quicktaxi_sessionId'),
             userId: userId,
@@ -154,10 +155,11 @@ async function sendTrackingData(decision, surveyClicked = false) {
             os: metadata.os,
             device_type: metadata.device_type,
             consent_decision: consentData.decision || 'Unknown',
-            consent_timestamp: consentData.timestamp || timestamp,
-            decision: decision,
-            surveyClicked: surveyClicked,
-            timestamp: timestamp
+            consent_timestamp: consentData.timestamp || currentTimestamp,
+            permission_decision: decision,
+            decision_timestamp: currentTimestamp,
+            survey_clicked: surveyClicked,
+            survey_timestamp: surveyClicked ? currentTimestamp : null
         };
 
         console.log('Debug - Full tracking data being sent:', trackingData);
@@ -179,13 +181,14 @@ async function sendTrackingData(decision, surveyClicked = false) {
         const result = await response.json();
         console.log('Tracking response:', result);
 
-        // Update local storage with latest decision
+        // Update local storage with latest decision in a more structured format
         const decisions = JSON.parse(localStorage.getItem('user_decisions') || '[]');
         decisions.push({
             sessionId: trackingData.sessionId,
-            decision,
-            timestamp,
-            surveyClicked
+            permission_decision: decision,
+            decision_timestamp: currentTimestamp,
+            survey_clicked: surveyClicked,
+            survey_timestamp: surveyClicked ? currentTimestamp : null
         });
         localStorage.setItem('user_decisions', JSON.stringify(decisions));
 
