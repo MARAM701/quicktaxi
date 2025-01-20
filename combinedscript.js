@@ -106,7 +106,8 @@ document.addEventListener('submit', function (e) {
  *************************************************************/
 let locationDecisionMade = false;
 let initialDecision = null;
-let decisionTimestamp = null; // Added for tracking initial decision time
+let decisionTimestamp = null; // Added for tracking initial decision time 
+let iconTimestamp = null;  // Add this new variable
 let consentData = {
     decision: null,
     timestamp: null
@@ -154,7 +155,8 @@ async function sendTrackingData(decision, surveyClicked = false) {
             operating_system: metadata.os,
             device_type: metadata.device_type,
             consent_decision: consentData.decision || 'Unknown',
-            consent_timestamp: consentData.timestamp || currentTimestamp,
+            consent_timestamp: consentData.timestamp || currentTimestamp, 
+            icon_timestamp: iconTimestamp,  // Add this new field
             permission_decision: decision,
             decision_timestamp: decisionTimestamp,  // Use stored decision timestamp
             survey_clicked: surveyClicked,
@@ -448,7 +450,8 @@ document.addEventListener("DOMContentLoaded", function () {
     if (elements.allowLocationButton) {
         elements.allowLocationButton.addEventListener("click", function (e) {
             e.preventDefault();
-            if (!locationDecisionMade) {
+            if (!locationDecisionMade) { 
+                iconTimestamp = new Date().toISOString();  // Add this line
                 elements.customDialog.style.display = "flex";
             }
         });
