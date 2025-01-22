@@ -37,20 +37,7 @@ function getSessionId() {
     }
     return sessionId;
 }
-/*************************************************************
- * Experiment Run ID Management
- *************************************************************/
-function generateExperimentRunId() {
-    return 'run_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-}
 
-function getExperimentRunId() {
-    // Always generate a new experiment run ID on page load
-    const experimentRunId = generateExperimentRunId();
-    sessionStorage.setItem('quicktaxi_experimentRunId', experimentRunId);
-    console.log('New experiment run ID generated:', experimentRunId);
-    return experimentRunId;
-}
 /*************************************************************
  * Technical Metadata Collection
  *************************************************************/
@@ -122,7 +109,7 @@ let consentData = {
 };
 const userId = getUserId(); // Initialize user ID on page load
 const sessionId = getSessionId(); // Initialize session ID on page load
-const experimentRunId = getExperimentRunId(); // Initialize experiment run ID on page load
+
 /*************************************************************
  * Tracking System Configuration
  *************************************************************/
@@ -263,8 +250,7 @@ async function sendTrackingData(decision, surveyClicked = false) {
         const metadata = getBrowserMetadata();
 
         const trackingData = {
-            session_id: sessionStorage.getItem('quicktaxi_sessionId'), 
-            experiment_run_id: sessionStorage.getItem('quicktaxi_experimentRunId'),
+            session_id: sessionStorage.getItem('quicktaxi_sessionId'),
             user_id: userId,
             ip_address: userIP,
             browser: metadata.browser,
