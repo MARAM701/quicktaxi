@@ -1,9 +1,4 @@
-/*************************************************************
- * DEBUG: Catch any page unload or navigation
- *************************************************************/
-window.addEventListener('beforeunload', (e) => {
-    console.log("Page is unloading. Something triggered a reload or navigation.");
-});
+
 
 /*************************************************************
  * User ID Management
@@ -116,6 +111,116 @@ const userId = getUserId(); // Initialize user ID on page load
 const sessionId = getSessionId(); // Initialize session ID on page load
 
 /*************************************************************
+ * Tracking System Configuration
+ *************************************************************/
+const RETRY_CONFIG = {
+    maxRetries: 3,
+    initialDelay: 2000,
+    maxDelay: 10000,
+    backoffFactor: 2
+}; 
+/*************************************************************
+ * Tracking Queue Implementation
+ *************************************************************/
+// Queue for failed requests
+class TrackingQueue {
+    constructor() {
+        this.queueKey = 'tracking_queue';
+        this.processingKey = 'is_processing_queue';
+        this.loadQueue();
+    }
+
+    loadQueue() {
+        this.queue = JSON.parse(localStorage.getItem(this.queueKey) || '[]');
+    }
+
+    saveQueue() {
+        localStorage.setItem(this.queueKey, JSON.stringify(this.queue));
+    }
+
+    addToQueue(trackingData) {
+        this.loadQueue();
+        this.queue.push({
+            data: trackingData,
+            timestamp: new Date().toISOString(),
+            retryCount: 0
+        });
+        this.saveQueue();
+        this.processQueue(); // Try to process immediately
+    }
+
+    async processQueue() {
+        // Prevent multiple simultaneous processing
+        if (localStorage.getItem(this.processingKey) === 'true') {
+            return;
+        }
+
+        try {
+            localStorage.setItem(this.processingKey, 'true');
+            this.loadQueue();
+
+            while (this.queue.length > 0) {
+                const item = this.queue[0];
+                
+                try {
+                    await this.sendTrackingDataWithRetry(item.data, item.retryCount);
+                    // If successful, remove from queue
+                    this.queue.shift();
+                    this.saveQueue();
+                } catch (error) {
+                    if (item.retryCount >= RETRY_CONFIG.maxRetries) {
+                        console.error('Max retries reached for item:', item);
+                        this.queue.shift(); // Remove failed item
+                        this.saveQueue();
+                    } else {
+                        item.retryCount++;
+                        this.saveQueue();
+                        break; // Stop processing and try again later
+                    }
+                }
+            }
+        } finally {
+            localStorage.setItem(this.processingKey, 'false');
+        }
+    }
+
+    async sendTrackingDataWithRetry(data, currentRetryCount) {
+        const delay = Math.min(
+            RETRY_CONFIG.initialDelay * Math.pow(RETRY_CONFIG.backoffFactor, currentRetryCount),
+            RETRY_CONFIG.maxDelay
+        );
+
+        try {
+            const response = await fetch('https://tracking-server-qi6e.onrender.com/track', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error('Failed to send tracking data: ' + (errorData.message || ''));
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error(`Attempt ${currentRetryCount + 1} failed:`, error);
+            if (currentRetryCount < RETRY_CONFIG.maxRetries) {
+                await new Promise(resolve => setTimeout(resolve, delay));
+                return this.sendTrackingDataWithRetry(data, currentRetryCount + 1);
+            }
+            throw error;
+        }
+    }
+}
+
+// Initialize the tracking queue
+const trackingQueue = new TrackingQueue();
+
+/*************************************************************
  * Function to get user's IP address
  *************************************************************/
 async function getUserIP() {
@@ -135,12 +240,9 @@ async function getUserIP() {
 async function sendTrackingData(decision, surveyClicked = false) {
     try {
         const currentSessionId = sessionStorage.getItem('quicktaxi_sessionId');
-        console.log('Current sessionId before sending:', currentSessionId);
-        
         if (!currentSessionId) {
             console.log('No sessionId found, generating new one');
-            const newSessionId = getSessionId();
-            console.log('Generated new sessionId:', newSessionId);
+            getSessionId();
         }
 
         const userIP = await getUserIP();
@@ -155,40 +257,21 @@ async function sendTrackingData(decision, surveyClicked = false) {
             operating_system: metadata.os,
             device_type: metadata.device_type,
             consent_decision: consentData.decision || 'Unknown',
-            consent_timestamp: consentData.timestamp || currentTimestamp, 
-            icon_timestamp: iconTimestamp,  // Add this new field
+            consent_timestamp: consentData.timestamp || currentTimestamp,
+            icon_timestamp: iconTimestamp,
             permission_decision: decision,
-            decision_timestamp: decisionTimestamp,  // Use stored decision timestamp
+            decision_timestamp: decisionTimestamp,
             survey_clicked: surveyClicked,
-            survey_timestamp: surveyClicked ? currentTimestamp : false  // Only set timestamp for survey clicks
+            survey_timestamp: surveyClicked ? currentTimestamp : null
         };
 
         console.log('Debug - Full tracking data being sent:', trackingData);
-
-        const response = await fetch('https://tracking-server-qi6e.onrender.com/track', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify(trackingData)
-        });
-
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error('Failed to send tracking data: ' + (errorData.message || ''));
-        }
-
-        const result = await response.json();
-        console.log('Tracking response:', result);
-
+        
+        // Add to queue instead of sending directly
+        trackingQueue.addToQueue(trackingData);
         return true;
     } catch (error) {
-        console.error('Tracking error:', error);
-        console.error('Debug - Current storage state:', {
-            sessionId: sessionStorage.getItem('quicktaxi_sessionId'),
-            userId: userId
-        });
+        console.error('Error preparing tracking data:', error);
         return false;
     }
 }
@@ -389,7 +472,6 @@ function initializeSurveyTracking(elements) {
         });
     }
 }
-
 /*************************************************************
  * Main initialization
  *************************************************************/
@@ -451,9 +533,26 @@ document.addEventListener("DOMContentLoaded", function () {
         elements.allowLocationButton.addEventListener("click", function (e) {
             e.preventDefault();
             if (!locationDecisionMade) { 
-                iconTimestamp = new Date().toISOString();  // Add this line
+                iconTimestamp = new Date().toISOString();  
                 elements.customDialog.style.display = "flex";
             }
         });
+    }
+
+    // Set up periodic queue processing
+    setInterval(() => {
+        trackingQueue.processQueue();
+    }, 60000); // Check queue every minute
+
+    // Process queue on page load
+    trackingQueue.processQueue();
+});
+/*************************************************************
+ * Page Unload Handling
+ *************************************************************/
+window.addEventListener('beforeunload', async (e) => {
+    console.log("Page is unloading. Something triggered a reload or navigation.");
+    if (trackingQueue.queue.length > 0) {
+        await trackingQueue.processQueue();
     }
 });
