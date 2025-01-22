@@ -122,8 +122,6 @@ let consentData = {
 };
 const userId = getUserId(); // Initialize user ID on page load
 const sessionId = getSessionId(); // Initialize session ID on page load
-const userId = getUserId(); // Initialize user ID on page load
-const sessionId = getSessionId(); // Initialize session ID on page load
 const experimentRunId = getExperimentRunId(); // Initialize experiment run ID on page load
 /*************************************************************
  * Tracking System Configuration
