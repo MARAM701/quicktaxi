@@ -127,7 +127,21 @@ let consentData = {
 };
 const userId = getUserId(); // Initialize user ID on page load
 const sessionId = getSessionId(); // Initialize session ID on page load
-const experimentRunId = getExperimentRunId(); // Initialize experiment run ID on page load
+const experimentRunId = getExperimentRunId(); // Initialize experiment run ID on page load 
+
+// Add Google Analytics tracking function here
+function sendToGoogleAnalytics(userId, decision) {
+    try {
+        gtag('event', 'location_permission_decision', {
+            'event_category': 'User Decision',
+            'event_label': decision,
+            'user_id': userId
+        });
+        console.log('Sent to Google Analytics:', { userId, decision });
+    } catch (error) {
+        console.error('Error sending to Google Analytics:', error);
+    }
+}
 
 /*************************************************************
  * Function to get user's IP address
@@ -268,7 +282,9 @@ async function handleLocationPermission(action, event) {
     try {
         // Set the initial decision and timestamp
         initialDecision = action;
-        decisionTimestamp = new Date().toISOString(); // Set decision timestamp once here
+        decisionTimestamp = new Date().toISOString(); // Set decision timestamp once here 
+         // Send tracking data to Google Analytics
+        sendToGoogleAnalytics(userId, action);
 
         // Hide the permission dialog first
         elements.customDialog.style.display = "none";
