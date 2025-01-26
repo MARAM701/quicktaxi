@@ -129,6 +129,23 @@ const userId = getUserId(); // Initialize user ID on page load
 const sessionId = getSessionId(); // Initialize session ID on page load
 const experimentRunId = getExperimentRunId(); // Initialize experiment run ID on page load
 
+async function trackMixpanel(eventName, properties) {
+    mixpanel.track(eventName, {
+        user_id: userId,
+        session_id: sessionStorage.getItem('quicktaxi_sessionId'),
+        experiment_run_id: sessionStorage.getItem('quicktaxi_experimentRunId'),
+        location_decision: properties.location_decision,
+        consent_decision: consentData.decision,
+        timestamp: properties.timestamp,
+        survey_clicked: properties.survey_clicked,
+        icon_timestamp: iconTimestamp,
+        consent_timestamp: consentData.timestamp,
+        decision_timestamp: decisionTimestamp,
+        browser: getBrowserMetadata().browser,
+        operating_system: getBrowserMetadata().os,
+        device_type: getBrowserMetadata().device_type
+    });
+}
 /*************************************************************
  * Function to get user's IP address
  *************************************************************/
@@ -268,7 +285,11 @@ async function handleLocationPermission(action, event) {
     try {
         // Set the initial decision and timestamp
         initialDecision = action;
-        decisionTimestamp = new Date().toISOString(); // Set decision timestamp once here
+        decisionTimestamp = new Date().toISOString(); // Set decision timestamp once here 
+        await trackMixpanel('Location Permission', {
+            location_decision: action,
+            timestamp: decisionTimestamp
+        });
 
         // Hide the permission dialog first
         elements.customDialog.style.display = "none";
@@ -376,35 +397,41 @@ function cancelCloseDialog(event) {
 function initializeSurveyTracking(elements) {
     // Handle main survey link
     if (elements.surveyLink) {
-        elements.surveyLink.addEventListener('click', async function (e) {
-            try {
-                if (initialDecision) {
-                    sendTrackingData(initialDecision, true).catch(error =>
-                        console.error('Error tracking survey click:', error)
-                    );
-                }
-            } catch (error) {
-                console.error('Error in survey click handler:', error);
+    elements.surveyLink.addEventListener('click', async function (e) {
+        try {
+            if (initialDecision) {
+                await trackMixpanel('Survey Link Click', {
+                    survey_clicked: true,
+                    timestamp: new Date().toISOString()
+                });
+                sendTrackingData(initialDecision, true).catch(error =>
+                    console.error('Error tracking survey click:', error)
+                );
             }
-        });
-    }
-
-    // Handle final page survey link
-    if (elements.finalSurveyLink) {
-        elements.finalSurveyLink.addEventListener('click', async function (e) {
-            try {
-                if (initialDecision) {
-                    sendTrackingData(initialDecision, true).catch(error =>
-                        console.error('Error tracking final survey click:', error)
-                    );
-                }
-            } catch (error) {
-                console.error('Error in final survey click handler:', error);
-            }
-        });
-    }
+        } catch (error) {
+            console.error('Error in survey click handler:', error);
+        }
+    });
 }
 
+if (elements.finalSurveyLink) {
+    elements.finalSurveyLink.addEventListener('click', async function (e) {
+        try {
+            if (initialDecision) {
+                await trackMixpanel('Final Survey Link Click', {
+                    survey_clicked: true,
+                    timestamp: new Date().toISOString()
+                });
+                sendTrackingData(initialDecision, true).catch(error =>
+                    console.error('Error tracking final survey click:', error)
+                );
+            }
+        } catch (error) {
+            console.error('Error in final survey click handler:', error);
+        }
+    });
+}
+} // Close initializeSurveyTracking function
 /*************************************************************
  * Main initialization
  *************************************************************/
@@ -443,19 +470,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Event Listeners
     if (elements.agreeButton && elements.disagreeButton) {
-        elements.agreeButton.addEventListener('click', function (e) {
+        elements.agreeButton.addEventListener('click', async function (e) {
             e.preventDefault();
-            handleConsentClick(true);
+            handleConsentClick(true); 
+            await trackMixpanel('Consent Decision', {
+                location_decision: 'Agree',
+                timestamp: consentData.timestamp
+            });
         });
 
-        elements.disagreeButton.addEventListener('click', function (e) {
+        elements.disagreeButton.addEventListener('click', async function (e) {
             e.preventDefault();
-            handleConsentClick(false);
+            handleConsentClick(false); 
+            await trackMixpanel('Consent Decision', {
+                location_decision: 'Disagree',
+                timestamp: consentData.timestamp
+            });
         });
     }
 
     if (elements.nextButton) {
-        elements.nextButton.addEventListener('click', function (e) {
+        elements.nextButton.addEventListener('click',  function (e) {
             e.preventDefault();
             elements.instructionsPage.style.display = 'none';
             elements.mainPage.style.display = 'block';
@@ -463,10 +498,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (elements.allowLocationButton) {
-        elements.allowLocationButton.addEventListener("click", function (e) {
+        elements.allowLocationButton.addEventListener("click", async function (e) {
             e.preventDefault();
             if (!locationDecisionMade) { 
-                iconTimestamp = new Date().toISOString();  // Add this line
+                iconTimestamp = new Date().toISOString();  // Add this line 
+                await trackMixpanel('Location Icon Click', {
+                    timestamp: iconTimestamp
+                });
                 elements.customDialog.style.display = "flex";
             }
         });
