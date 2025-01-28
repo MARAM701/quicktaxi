@@ -134,12 +134,12 @@ const experimentRunId = getExperimentRunId(); // Initialize experiment run ID on
  *************************************************************/
 async function getUserIP() {
     try {
-        const response = await fetch('https://ip-api.com/json/');
+        const response = await fetch('https://ipwho.is/');
         const data = await response.json();
         
-        if (data.status === 'success') {
+        if (data.success) {
             return {
-                ip: data.query,
+                ip: data.ip,
                 country: data.country
             };
         } else {
