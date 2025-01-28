@@ -130,16 +130,31 @@ const sessionId = getSessionId(); // Initialize session ID on page load
 const experimentRunId = getExperimentRunId(); // Initialize experiment run ID on page load
 
 /*************************************************************
- * Function to get user's IP address
+ * Function to get user's IP address and country
  *************************************************************/
 async function getUserIP() {
     try {
-        const response = await fetch('https://api.ipify.org?format=json');
+        const response = await fetch('https://ip-api.com/json/');
         const data = await response.json();
-        return data.ip;
+        
+        if (data.status === 'success') {
+            return {
+                ip: data.query,
+                country: data.country
+            };
+        } else {
+            console.error('Error fetching location data:', data.message);
+            return {
+                ip: 'unknown',
+                country: 'unknown'
+            };
+        }
     } catch (error) {
-        console.error('Error fetching IP:', error);
-        return 'unknown';
+        console.error('Error fetching IP and country:', error);
+        return {
+            ip: 'unknown',
+            country: 'unknown'
+        };
     }
 }
 
@@ -157,7 +172,7 @@ async function sendTrackingData(decision, surveyClicked = false) {
             console.log('Generated new sessionId:', newSessionId);
         }
 
-        const userIP = await getUserIP();
+        const locationData = await getUserIP();
         const currentTimestamp = new Date().toISOString();
         const metadata = getBrowserMetadata();
 
@@ -165,7 +180,8 @@ async function sendTrackingData(decision, surveyClicked = false) {
             session_id: sessionStorage.getItem('quicktaxi_sessionId'), 
             experiment_run_id: sessionStorage.getItem('quicktaxi_experimentRunId'),
             user_id: userId,
-            ip_address: userIP,
+            ip_address: locationData.ip,
+            country: locationData.country,
             browser: metadata.browser,
             operating_system: metadata.os,
             device_type: metadata.device_type,
